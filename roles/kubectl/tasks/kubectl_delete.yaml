@@ -1,0 +1,17 @@
+---
+- name: "check for {{ item }}"
+  become: yes
+  stat:
+    path: "{{ directory }}/{{ item }}"
+  register: template
+
+- name: "kubectl delete {{ item }}"
+  become: yes
+  command: "kubectl delete -f {{ directory }}/{{ item }}"
+  ignore_errors: true
+  when: template.stat.exists
+
+- name: "remove {{ item }}"
+  become: yes
+  command: "rm {{ directory }}/{{ item }}"
+  when: template.stat.exists

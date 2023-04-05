@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: elasticsearch-ingress
+  namespace: {{ namespace }}
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+spec:
+  tls:
+    - hosts:
+      - {{ fqdn }}
+      secretName: wildcard-cert
+  rules:
+    - host: {{ fqdn }}
+      http:
+        paths:
+          - path: /api
+            pathType: Exact
+            backend:
+              service:
+                name: kibana
+                port: 
+                  number: 5601

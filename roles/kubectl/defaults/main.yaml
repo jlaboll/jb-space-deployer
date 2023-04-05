@@ -1,0 +1,36 @@
+teardown: false
+directory: /etc/kubectl_templates
+namespace: default
+secrets:
+  postgres:
+    superuserpass: password
+    replicationpass: password
+  redis:
+  traefik:
+    tlscrt: 1
+    tlskey: 2
+fqdn: example.com
+templates:
+  - local-path-00-namespace.yaml
+  - local-path-00-account.yaml
+  - local-path-01-role.yaml
+  - local-path-02-role-binding.yaml
+  - local-path-03-deployment.yaml
+  - local-path-04-storage-class.yaml
+  - local-path-05-config-map.yaml
+  - traefik-00-role.yaml
+  - traefik-00-account.yaml
+  - traefik-01-role-binding.yaml
+  - traefik-02-tls-secret.yaml
+  - traefik-02.yaml
+  - traefik-02-services.yaml
+  - kubegres-00-operator.yaml
+  - kubegres-01-secret.yaml
+  - kubegres-02.yaml
+  - redis-00-config-map.yaml
+  - redis-01.yaml
+  - eck-00-crds.yaml
+  - eck-01-operator.yaml
+  - eck-02-elasticsearch.yaml
+  - eck-02-kibana.yaml
+  - eck-03-ingress.yaml

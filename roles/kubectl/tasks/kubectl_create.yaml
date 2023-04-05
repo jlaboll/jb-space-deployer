@@ -1,0 +1,14 @@
+---
+- name: "copy {{ item }}"
+  become: yes
+  template:
+    src: "{{ item }}"
+    dest: "{{ directory }}/{{ item }}"
+
+- name: "kubectl create {{ item }}"
+  become: yes
+  command: "kubectl create -f {{ directory }}/{{ item }}"
+  register: kubectl_create
+  until: "kubectl_create is not failed"
+  retries: 2
+  delay: 1

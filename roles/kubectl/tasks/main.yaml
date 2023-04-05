@@ -1,0 +1,17 @@
+- name: "teardown templates"
+  include_tasks: kubectl_delete.yaml
+  loop: "{{ templates|reverse|list }}"
+  when: teardown
+
+- name: "create directory {{ directory }}"
+  become: yes
+  file:
+    path: "{{ directory }}"
+    state: directory
+    mode: 0755
+  when: not teardown
+
+- name: "deploy templates"
+  include_tasks: kubectl_create.yaml
+  loop: "{{ templates }}"
+  when: not teardown
